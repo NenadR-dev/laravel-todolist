@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -34,12 +35,13 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
+        $validated = $request->validated();
         $user = User::create([
-            'name' => $request['name'],
-            'password' => Hash::make($request['password']),
-            'email' => $request['email']
+            'name' => $validated['name'],
+            'password' => Hash::make($validated['password']),
+            'email' => $validated['email']
         ]);
         return $user;
     }
@@ -73,7 +75,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
         //
     }

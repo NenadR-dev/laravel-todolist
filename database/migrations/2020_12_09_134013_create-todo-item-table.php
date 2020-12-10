@@ -19,7 +19,7 @@ class CreateTodoItemTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('priority');
-            $table->boolean('completed');
+            $table->boolean('completed')->default(false);
             $table->timestamps();
             $table->index('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

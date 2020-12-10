@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::group([
-    'middleware' => 'auth:api'
+    'middleware' => 'api'
 ], function($router) {
     Route::resources([
         'user' => UserController::class,
