@@ -9,6 +9,11 @@ use App\Http\Requests\TodoRequest;
 
 class TodoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('token');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +21,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return Auth::user() ? Auth::user()->todo_items : [];
+        return Auth::user()->todo_items;
     }
 
     /**
@@ -76,8 +81,7 @@ class TodoController extends Controller
      */
     public function update(TodoRequest $request, TodoItem $todo)
     {
-        $validated = $request->validated();
-        return $todo->update($validated->only('title','description','priority','completed'));
+        return $todo->update($request->only('title','description','priority','completed'));
     }
 
     /**
